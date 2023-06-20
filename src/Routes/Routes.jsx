@@ -22,7 +22,7 @@ import ErrorPage from "../components/ErrorPage/ErrorPage";
           element: <Menu></Menu>
         },
         {
-          path: 'order',
+          path: 'order/:category',
           element: <Order></Order>
         },
       ]

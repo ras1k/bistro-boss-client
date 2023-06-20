@@ -5,10 +5,15 @@ import { Helmet } from 'react-helmet-async';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import useMenu from '../../../hooks/useMenu';
+import FoodCard from '../../../components/FoodCard/FoodCard';
+import OrderTab from '../OrderTab/OrderTab';
+import { useParams } from 'react-router-dom';
 
 const Order = () => {
     const [tabIndex, setTabIndex] = useState(0);
     const [menu] = useMenu();
+    const {category} = useParams();
+    console.log(category)
 
     const dessert = menu.filter(item => item.category === 'dessert')
     const pizza = menu.filter(item => item.category === 'pizza')
@@ -22,7 +27,7 @@ const Order = () => {
                 <title>Bistro Boss | Order Food</title>
             </Helmet>
             <Cover img={coverImg} title={'Order Food'}></Cover>
-            <Tabs defaultIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
+            <Tabs defaultIndex={tabIndex} className='mt-4' onSelect={(index) => setTabIndex(index)}>
                 <TabList>
                     <Tab>Salad</Tab>
                     <Tab>Pizza</Tab>
@@ -30,11 +35,21 @@ const Order = () => {
                     <Tab>Dessert</Tab>
                     <Tab>Drinks</Tab>
                 </TabList>
-                <TabPanel></TabPanel>
-                <TabPanel></TabPanel>
-                <TabPanel></TabPanel>
-                <TabPanel></TabPanel>
-                <TabPanel></TabPanel>
+                <TabPanel>
+                    <OrderTab items={salad}></OrderTab>
+                </TabPanel>
+                <TabPanel>
+                    <OrderTab items={pizza}></OrderTab>
+                </TabPanel>
+                <TabPanel>
+                    <OrderTab items={soup}></OrderTab>
+                </TabPanel>
+                <TabPanel>
+                    <OrderTab items={dessert}></OrderTab>
+                </TabPanel>
+                <TabPanel>
+                    <OrderTab items={drinks}></OrderTab>
+                </TabPanel>
             </Tabs>
         </div>
     );

@@ -10,9 +10,11 @@ import OrderTab from '../OrderTab/OrderTab';
 import { useParams } from 'react-router-dom';
 
 const Order = () => {
-    const [tabIndex, setTabIndex] = useState(0);
-    const [menu] = useMenu();
+    const categories = ['salad', 'pizza', 'soup', 'dessert', 'drinks']
     const {category} = useParams();
+    const iniatialIndex = categories.indexOf(category)
+    const [tabIndex, setTabIndex] = useState(iniatialIndex);
+    const [menu] = useMenu();
     console.log(category)
 
     const dessert = menu.filter(item => item.category === 'dessert')

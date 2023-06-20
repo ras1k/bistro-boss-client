@@ -9,6 +9,7 @@ import img2 from '../../../assets/home/slide2.jpg'
 import img3 from '../../../assets/home/slide3.jpg'
 import img4 from '../../../assets/home/slide4.jpg'
 import img5 from '../../../assets/home/slide5.jpg'
+import img6 from '../../../assets/home/slide6.jpg'
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 
 
@@ -49,6 +50,10 @@ const Category = () => {
                     <SwiperSlide>
                         <img src={img5} alt="" />
                         <h3 className='text-3xl uppercase text-center text-white -mt-12'>Salad</h3>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <img className='h-[400px]' src={img6} alt="" />
+                        <h3 className='text-3xl uppercase text-center text-white -mt-12'>Drinks</h3>
                     </SwiperSlide>
                 </Swiper>
             </div>

@@ -17,6 +17,7 @@ const Order = () => {
     const [menu] = useMenu();
     console.log(category)
 
+    const offered = menu.filter(item => item.category === 'offered')
     const dessert = menu.filter(item => item.category === 'dessert')
     const pizza = menu.filter(item => item.category === 'pizza')
     const salad = menu.filter(item => item.category === 'salad')
@@ -31,12 +32,16 @@ const Order = () => {
             <Cover img={coverImg} title={'Order Food'}></Cover>
             <Tabs defaultIndex={tabIndex} className='mt-4' onSelect={(index) => setTabIndex(index)}>
                 <TabList>
+                    <Tab>Offer</Tab>
                     <Tab>Salad</Tab>
                     <Tab>Pizza</Tab>
                     <Tab>Soup</Tab>
                     <Tab>Dessert</Tab>
                     <Tab>Drinks</Tab>
                 </TabList>
+                <TabPanel>
+                    <OrderTab items={offered}></OrderTab>
+                </TabPanel>
                 <TabPanel>
                     <OrderTab items={salad}></OrderTab>
                 </TabPanel>

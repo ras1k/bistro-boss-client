@@ -28,7 +28,7 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn text-white btn-outline">Button</a>
+                    <a className="btn text-white btn-outline">Login</a>
                 </div>
             </div>
         </>

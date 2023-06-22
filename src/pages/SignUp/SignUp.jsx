@@ -1,6 +1,15 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+
 
 const SignUp = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm()
+    const onSubmit = (data) => console.log(data)
     return (
         <div>
             <div className="hero min-h-screen bg-base-200">
@@ -10,37 +19,33 @@ const SignUp = () => {
                         <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                     </div>
                     <div className="card md:w-1/2 max-w-sm shadow-2xl bg-base-100">
-                        <form onSubmit={handleLogin} className="card-body">
+                        <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
-                                <input type="text" name='name' placeholder="name" className="input input-bordered" />
+                                <input type="text" name='name' {...register("name", { required: true })}  placeholder="name" className="input input-bordered" />
+                                {errors.name && <span className='text-red-600'>This field is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="text" name='email' placeholder="email" className="input input-bordered" />
+                                <input type="text" name='email' {...register("email", { required: true })} placeholder="email" className="input input-bordered" />
+                                {errors.email && <span className='text-red-600'>This field is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" name='password' placeholder="password" className="input input-bordered" />
+                                <input type="password" name='password' {...register("password", { required: true, minLength: 6 })} placeholder="password" className="input input-bordered" />
+                                {errors.password && <span className='text-red-600'>This field is required</span>}
                                 <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
                             </div>
-                            <div className="form-control">
-                                <label className="label">
-                                    <LoadCanvasTemplate />
-                                </label>
-                                <input type="text" name='captcha' ref={captchaRef} placeholder="Type the text above" className="input input-bordered" />
-                                <button className='btn btn-xs btn-outline mt-4' onClick={handleValidateCaptcha}>Validate</button>
-                            </div>
                             <div className="form-control mt-6">
-                                <input type="submit" disabled={disabled} className='btn btn-outline btn-accent' value="Signup" />
+                                <input type="submit" className='btn btn-outline btn-accent' value="Signup" />
                             </div>
                         </form>
                         <div className='text-center mb-4'>

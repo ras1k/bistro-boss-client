@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 
 const Login = () => {
+    const captchaRef = useRef(null);
+    const [disabled, setDisabled] = useState(true)
+    useEffect(() => {
+        loadCaptchaEnginge(6);
+    }, [])
     const handleLogin = (event) => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password)
+    }
+    const handleValidateCaptcha = () => {
+        const user_captcha_value = captchaRef.current.value;
+        if(validateCaptcha(user_captcha_value)){
+            setDisabled(false);
+        } else {
+            setDisabled(true)
+        }
     }
     return (
         <div>
@@ -33,8 +47,15 @@ const Login = () => {
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
                             </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <LoadCanvasTemplate />
+                                </label>
+                                <input type="text" name='captcha' ref={captchaRef} placeholder="Type the text above" className="input input-bordered" />
+                                <button className='btn btn-xs btn-outline mt-4' onClick={handleValidateCaptcha}>Validate</button>
+                            </div>
                             <div className="form-control mt-6">
-                                <input type="submit" className='btn btn-outline' value="Login" />
+                                <input type="submit" disabled={disabled} className='btn btn-outline btn-accent' value="Login" />
                             </div>
                         </form>
                     </div>

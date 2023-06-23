@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 
 const Login = () => {
-    const [disabled, setDisabled] = useState(true);
 
+    const [disabled, setDisabled] = useState(true);
     const { signIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -22,16 +26,19 @@ const Login = () => {
         console.log(email, password)
         signIn(email, password)
             .then(result => {
-                console.log(result.user);
+                const user = result.user
+                console.log(user);
+
                 Swal.fire({
                     title: 'User Login successful',
                     showClass: {
-                      popup: 'animate__animated animate__fadeInDown'
+                        popup: 'animate__animated animate__fadeInDown'
                     },
                     hideClass: {
-                      popup: 'animate__animated animate__fadeOutUp'
+                        popup: 'animate__animated animate__fadeOutUp'
                     }
-                  })
+                });
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 console.log(error)
@@ -80,7 +87,7 @@ const Login = () => {
                                     <LoadCanvasTemplate />
                                 </label>
                                 <input type="text" name='captcha' onBlur={handleValidateCaptcha} placeholder="Type the text above" className="input input-bordered" />
-                                
+
                             </div>
                             <div className="form-control mt-6">
                                 <input type="submit" disabled={disabled} className='btn btn-primary' value="Login" />

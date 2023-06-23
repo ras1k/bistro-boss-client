@@ -2,6 +2,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../providers/AuthProvider';
+import { FaBeer, FaShoppingCart } from 'react-icons/fa';
 
 const NavBar = () => {
 
@@ -15,11 +16,17 @@ const NavBar = () => {
             })
     }
 
-    const navOption = <>
+    const navOption = <div className='flex items-center'>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/menu'>Our Menu</Link></li>
         <li><Link to='/order'>Order Food</Link></li>
-    </>
+        <li><Link to='/'>
+            <button className="btn btn-ghost">
+                <FaShoppingCart />
+                <div className="badge badge-neutral">+99</div>
+            </button>
+        </Link></li>
+    </div>
     return (
         <>
             <div className="navbar md:fixed bg-opacity-30 text-white z-10 max-w-screen-xl bg-black">
@@ -41,8 +48,10 @@ const NavBar = () => {
                 </div>
                 <div className="navbar-end">
                     {user ?
-                        <button className="btn text-white btn-ghost" onClick={handleLogOut}>log out</button> :
-                        <Link to='/login'><p className="btn text-white btn-ghost">Login</p></Link>
+                        <><span>{user?.displayName}</span>
+                            <img src={user?.photoURL} className='w-[30px] ms-2' alt="" />
+                            <button className="btn text-white btn-ghost" onClick={handleLogOut}>log out</button></> :
+                        <><Link to='/login'><p className="btn text-white btn-ghost">Login</p></Link></>
                     }
                 </div>
             </div>

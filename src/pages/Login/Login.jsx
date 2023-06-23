@@ -3,12 +3,13 @@ import { useContext } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true);
 
-    const {signIn} = useContext(AuthContext);
+    const { signIn } = useContext(AuthContext);
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -20,25 +21,28 @@ const Login = () => {
         const password = form.password.value;
         console.log(email, password)
         signIn(email, password)
-        .then(user => {
-            console.log(user)
-        })
-        .catch(error => {
-            console.log(error)
-        })
-        
+            .then(result => {
+                console.log(result.user)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
 
     }
     const handleValidateCaptcha = () => {
         const user_captcha_value = captchaRef.current.value;
-        if(validateCaptcha(user_captcha_value)){
+        if (validateCaptcha(user_captcha_value)) {
             setDisabled(false);
         } else {
             setDisabled(true)
         }
     }
     return (
-        <div>
+        <>
+            <Helmet>
+                <title>Bistro Boss | Signup</title>
+            </Helmet>
             <div className="hero min-h-screen bg-base-200">
                 <div className="hero-content flex-col lg:flex-row">
                     <div className="text-center md:w-1/2 lg:text-left">
@@ -79,7 +83,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

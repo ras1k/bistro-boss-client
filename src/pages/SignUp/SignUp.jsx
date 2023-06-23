@@ -1,17 +1,36 @@
 import React from 'react';
+import { useContext } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider';
 
 
 const SignUp = () => {
+    const { createUser } = useContext(AuthContext);
+
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm()
-    const onSubmit = (data) => console.log(data)
+    } = useForm();
+
+    const onSubmit = (data) => {
+        console.log(data);
+        createUser(data.email, data.password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
     return (
-        <div>
+        <>
+            <Helmet>
+                <title>Bistro Boss | Signup</title>
+            </Helmet>
             <div className="hero min-h-screen bg-base-200">
                 <div className="hero-content flex-col lg:flex-row">
                     <div className="text-center md:w-1/2 lg:text-left">
@@ -24,7 +43,7 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
-                                <input type="text" name='name' {...register("name", { required: true })}  placeholder="name" className="input input-bordered" />
+                                <input type="text" name='name' {...register("name", { required: true })} placeholder="name" className="input input-bordered" />
                                 {errors.name && <span className='text-red-600'>This field is required</span>}
                             </div>
                             <div className="form-control">
@@ -38,8 +57,15 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" name='password' {...register("password", { required: true, minLength: 6 })} placeholder="password" className="input input-bordered" />
-                                {errors.password && <span className='text-red-600'>This field is required</span>}
+                                <input type="password" name='password' {...register("password", {
+                                    required: true,
+                                    minLength: 6,
+                                    // pattern: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])$/
+                                })}
+                                    placeholder="password" className="input input-bordered" />
+                                {errors.password?.type === 'required' && <span className='text-red-600'>This field is required</span>}
+                                {errors.password?.type === 'minLength' && <span className='text-red-600'>Password Must Be Six Characters</span>}
+                                {/* {errors.password?.type === 'pattern' && <span className='text-red-600'>Password Must Be 1 upper case, 1 lower case, 1 special character</span>} */}
                                 <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
@@ -54,7 +80,7 @@ const SignUp = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

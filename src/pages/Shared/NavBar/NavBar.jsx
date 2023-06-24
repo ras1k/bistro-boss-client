@@ -10,10 +10,6 @@ const NavBar = () => {
 
     const handleLogOut = () => {
         logOut()
-            
-            .catch(error => {
-                console.log(error)
-            })
     }
 
     const navOption = <div className='flex items-center'>

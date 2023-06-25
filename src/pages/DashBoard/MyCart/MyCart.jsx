@@ -2,25 +2,56 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import useCart from '../../../hooks/useCart';
 import { FaTrashAlt } from 'react-icons/fa';
+import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 
 const MyCart = () => {
-    const [cart] = useCart();
+    const [cart, refetch] = useCart();
     const total = cart.reduce((sum, item) => item.price + sum, 0)
+
+    const handleDelete = (item) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/carts/${item._id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+            }
+        })
+    }
+
     return (
-        <div>
+        <div className='w-full h-full ms-10 mt-2'>
             <Helmet>
                 <title>Bistro Boss | My Cart</title>
             </Helmet>
             <div className='uppercase font-semibold flex h-[60px] items-center justify-evenly'>
                 <h3 className="text-3xl">Total: {cart.length}</h3>
-                <h3 className="text-3xl">Total Price: {total}</h3>
+                <h3 className="text-3xl">Total Price: ${total}</h3>
                 <button className='btn btn-sm btn-warning'>Pay</button>
             </div>
             <div>
                 <div className="overflow-x-auto">
                     <table className="table">
                         {/* head */}
-                        <thead>
+                        <thead className='bg-slate-200'>
                             <tr>
                                 <th>
                                     #
@@ -55,7 +86,7 @@ const MyCart = () => {
                                         {item.price}
                                     </td>
                                     <td>
-                                        <button className="btn hover:bg-black bg-red-500 text-white"><FaTrashAlt/></button>
+                                        <button onClick={() => handleDelete(item)} className="btn hover:bg-black bg-red-500 text-white"><FaTrashAlt /></button>
                                     </td>
                                 </tr>)
                             }

@@ -1,8 +1,10 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { FaWallet, FaShoppingCart, FaCalendarAlt, FaHome, FaHamburger } from 'react-icons/fa';
+import { FaWallet, FaShoppingCart, FaCalendarAlt, FaHome, FaHamburger, FaArrowAltCircleDown } from 'react-icons/fa';
+import useCart from '../hooks/useCart';
 
 const DashBoard = () => {
+    const [cart] = useCart()
     return (
         <div>
             <div className="drawer lg:drawer-open">
@@ -17,13 +19,13 @@ const DashBoard = () => {
                     <ul className="menu p-4 w-80 h-full text-base-content">
                         {/* Sidebar content here */}
                         <li><NavLink to='/dashboard/home'><FaHome /> User Home</NavLink></li>
-                        <li><NavLink to='/dashboard/mycart'><FaShoppingCart /> My Cart</NavLink></li>
+                        <li><NavLink to='/dashboard/mycart'><FaShoppingCart /> My Cart <span className="badge ">+{cart?.length || 0}</span></NavLink></li>
                         <li><NavLink to='/dashboard/history'><FaWallet /> Payment History</NavLink></li>
                         <li><NavLink to='/dashboard/reservation'><FaCalendarAlt /> Reservation</NavLink></li>
                         <div className="divider"></div>
                         <li><NavLink to='/'><FaHome /> Home</NavLink></li>
                         <li><NavLink to='/menu'><FaHamburger/> Menu</NavLink></li>
-                        <li><NavLink to='/order'>Order Food</NavLink></li>
+                        <li><NavLink to='/order'><FaArrowAltCircleDown/>Order Food</NavLink></li>
                     </ul>
 
                 </div>

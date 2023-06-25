@@ -52,6 +52,7 @@ import MyCart from "../pages/DashBoard/MyCart/MyCart";
     {
       path: 'dashboard',
       element: <DashBoard></DashBoard>,
+      errorElement: <ErrorPage></ErrorPage>,
       children: [
         {
           path: 'mycart',

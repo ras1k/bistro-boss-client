@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2/dist/sweetalert2.all.js';
+import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 
 
 const SignUp = () => {
@@ -23,28 +24,35 @@ const SignUp = () => {
                 const loggedUser = result.user;
                 console.log(loggedUser)
                 updateUserProfile(data.name, data.photoURL)
-                .then( () => {
-                    fetch('http://localhost:5000/users')
-                    .then(res => res.json())
-                    .then(data => {
-                        if(data.insertedId)
-                        console.log(data)
+                    .then(() => {
+                        const saveUser = {name: data.name, email: data.email}
+                        fetch('http://localhost:5000/users', {
+                            method: 'POST',
+                            headers: {
+                                'content-type' : 'application/json'
+                            },
+                            body: JSON.stringify(saveUser)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    reset();
+                                    Swal.fire({
+                                        title: 'User Signup successful',
+                                        showClass: {
+                                            popup: 'animate__animated animate__fadeInDown'
+                                        },
+                                        hideClass: {
+                                            popup: 'animate__animated animate__fadeOutUp'
+                                        }
+                                    });
+                                    navigate('/')
+                                }
+                            })
                     })
-                    reset();
-                    Swal.fire({
-                        title: 'User Signup successful',
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
-                        }
-                    });
-                    navigate('/')
-                })
-                .catch( error => {
-                    console.log(error)
-                })
+                    .catch(error => {
+                        console.log(error)
+                    })
             })
             .catch(error => {
                 console.log(error)
@@ -105,6 +113,7 @@ const SignUp = () => {
                                 <input type="submit" className='btn btn-outline btn-accent' value="Signup" />
                             </div>
                         </form>
+                        <SocialLogin></SocialLogin>
                         <div className='text-center mb-4'>
                             <p><small>Already Have An Account? <span className='text-blue-500'><Link to='/login'>Login</Link></span></small></p>
                         </div>

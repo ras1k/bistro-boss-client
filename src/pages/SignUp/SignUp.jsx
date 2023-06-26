@@ -18,14 +18,18 @@ const SignUp = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser)
                 updateUserProfile(data.name, data.photoURL)
                 .then( () => {
-                    console.log('Profile Updated')
+                    fetch('http://localhost:5000/users')
+                    .then(res => res.json())
+                    .then(data => {
+                        if(data.insertedId)
+                        console.log(data)
+                    })
                     reset();
                     Swal.fire({
                         title: 'User Signup successful',

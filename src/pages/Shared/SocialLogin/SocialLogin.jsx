@@ -23,9 +23,7 @@ const SocialLogin = () => {
                     body: JSON.stringify(saveUser)
                 })
                     .then(res => res.json())
-                    .then(data => {
-                        if (data.insertedId) {
-                            reset();
+                    .then(() => {
                             Swal.fire({
                                 title: 'User Signup successful',
                                 showClass: {
@@ -36,7 +34,6 @@ const SocialLogin = () => {
                                 }
                             });
                             navigate(from, { replace: true })
-                        }
                     })
             })
     }

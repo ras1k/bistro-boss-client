@@ -29,9 +29,38 @@ const AllUsers = () => {
     })
     }
 
-    const handleDelete = user => {
-
+    const handleDelete = (user) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/users/${user._id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire(
+                                'Deleted!',
+                                `${user.name} has been deleted.`,
+                                'success'
+                            )
+                        }
+                    })
+            }
+        })
     }
+
+    // const handleDelete = user => {
+    //     fetch('http://localhost:5000/users')
+    // }
     return (
         <div className='w-full h-full ms-10 mt-2'>
             <Helmet>
@@ -62,7 +91,7 @@ const AllUsers = () => {
 
                                     }</td>
                                     <td>                                       
-                                        <button onClick={() => handleDelete(item)} className="btn hover:bg-black bg-red-500 text-white"><FaTrashAlt /></button>
+                                        <button onClick={() => handleDelete(user)} className="btn hover:bg-black bg-red-500 text-white"><FaTrashAlt /></button>
                                     </td>
                                     
                                 </tr>)

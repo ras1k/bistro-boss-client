@@ -1,14 +1,14 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../providers/AuthProvider';
+import useAuth from './useAuth';
 
 const useAxiosSecure = () => {
-  const { logOut } = useContext(AuthContext); 
+  const { logOut } = useAuth()
   const navigate = useNavigate(); 
 
   const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000', 
+    baseURL: 'https://bistro-boss-server-three-omega.vercel.app', 
   });
 
   useEffect(() => {

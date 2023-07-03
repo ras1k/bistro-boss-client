@@ -1,15 +1,14 @@
 import React from 'react';
-import { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 import SocialLogin from '../Shared/SocialLogin/SocialLogin';
+import useAuth from '../../hooks/useAuth';
 
 
 const SignUp = () => {
-    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile } = useAuth();
     const navigate = useNavigate();
     const {
         register,
@@ -26,7 +25,7 @@ const SignUp = () => {
                 updateUserProfile(data.name, data.photoURL)
                     .then(() => {
                         const saveUser = {name: data.name, email: data.email}
-                        fetch('http://localhost:5000/users', {
+                        fetch('https://bistro-boss-server-three-omega.vercel.app/users', {
                             method: 'POST',
                             headers: {
                                 'content-type' : 'application/json'

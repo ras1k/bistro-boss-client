@@ -3,13 +3,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useAuth from './useAuth';
 
-const useAxiosSecure = () => {
-  const { logOut } = useAuth()
-  const navigate = useNavigate(); 
+const axiosSecure = axios.create({
+  baseURL: 'https://bistro-boss-server-three-omega.vercel.app', 
+});
 
-  const axiosSecure = axios.create({
-    baseURL: 'https://bistro-boss-server-three-omega.vercel.app', 
-  });
+const useAxiosSecure = () => {
+  const { logOut } = useAuth(); 
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     axiosSecure.interceptors.request.use((config) => {
@@ -30,7 +30,7 @@ const useAxiosSecure = () => {
         return Promise.reject(error);
       }
     );
-  }, [logOut, navigate, axiosSecure]);
+  }, [logOut, navigate]);
 
   return [axiosSecure];
 };

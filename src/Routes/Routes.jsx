@@ -13,6 +13,7 @@ import PrivateRoute from "./PrivateRoute";
 import DashBoard from "../Layout/DashBoard";
 import MyCart from "../pages/DashBoard/MyCart/MyCart";
 import AllUsers from "../pages/DashBoard/AllUsers/AllUsers";
+import AddItem from "../pages/DashBoard/AddItem/AddItem";
 
   export const router = createBrowserRouter([
     {
@@ -62,7 +63,11 @@ import AllUsers from "../pages/DashBoard/AllUsers/AllUsers";
         {
           path: 'allusers',
           element: <AllUsers></AllUsers>
-        }
+        },
+        {
+          path: 'addItem',
+          element: <AddItem></AddItem>
+        },
       ]
     }
   ]);

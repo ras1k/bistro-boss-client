@@ -15,19 +15,18 @@ const AddItem = () => {
                 <title>Bistro Boss | Add Item</title>
             </Helmet>
             <SectionTitle subHeading={'Whats New'} heading={'Add An Item'}></SectionTitle>
-            <>
+            <div className='bg-slate-100 p-10 rounded-lg'>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-control w-full max-w-xs">
+                    <div className="form-control w-full  ">
                         <label className="label">
                             <span className="label-text font-semibold">Recipe Name?<span className='text-red-600'>*</span></span>
                         </label>
                         <input type="text" placeholder="Type here"
                             {...register("name", { required: true, maxLength: 80 })}
-                            className="input input-bordered w-full max-w-xs" />
+                            className="input input-bordered w-full  " />
                     </div>
-                </form>
-                <div className='flex gap-5'>
-                    <div className="form-control w-full max-w-xs">
+                    <div className='flex gap-5'>
+                    <div className="form-control w-full  ">
                         <label className="label">
                             <span className="label-text">Category<span className='text-red-600'>*</span></span>
                         </label>
@@ -40,11 +39,11 @@ const AddItem = () => {
                             <option>Drinks</option>
                         </select>
                     </div>
-                    <div className="form-control w-full max-w-xs">
+                    <div className="form-control w-full  ">
                         <label className="label">
                             <span className="label-text font-semibold">Price<span className='text-red-600'>*</span></span>
                         </label>
-                        <input type="number" placeholder="Price" {...register("price", { required: true })} className="input input-bordered w-full max-w-xs" />
+                        <input type="number" placeholder="Price" {...register("price", { required: true })} className="input input-bordered w-full  " />
                     </div>
                 </div>
                 <div>
@@ -52,19 +51,21 @@ const AddItem = () => {
                         <label className="label">
                             <span className="label-text">Recipe Details<span className='text-red-600'>*</span></span>
                         </label>
-                        <textarea className="textarea textarea-bordered w-5/6 h-24" {...register("details", { required: true })} placeholder="Recipe"></textarea>
+                        <textarea className="textarea textarea-bordered h-24" {...register("recipe", { required: true })} placeholder="Recipe"></textarea>
                     </div>
                 </div>
-                <div className="form-control w-full max-w-xs">
+                <div className="form-control w-full  ">
                     <label className="label">
                         <span className="label-text">Item Image<span className='text-red-600'>*</span></span>
                     </label>
-                    <input type="file" className="file-input file-input-bordered w-full max-w-xs" />
+                    <input type="file" {...register("image", { required: true })} className="file-input file-input-bordered w-full  " />
                 </div>
-                <div className=''>
-                    <input type="submit" className='btn btn-outline btn-primary border-b-4 mt-2' value="Submit" />
+                <div className='text-center'>
+                    <input type="submit" className='btn btn-outline w-full btn-primary border-b-4 mt-4' value="Submit" />
                 </div>
-            </>
+                </form>
+                
+            </div>
         </div>
     );
 };

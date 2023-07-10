@@ -3,12 +3,25 @@ import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 
+const img_hosting_token = import.meta.env.VITE_Image_Upload_Token;
 const AddItem = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const img_hosting_URl = `https://api.imgbb.com/1/upload?expiration=600&key=${img_hosting_token}`
     const onSubmit = data => {
         console.log(data)
+        const fromData = new FormData();
+        fromData.append('image', data.image[0])
+
+        fetch(img_hosting_URl, {
+            method: 'POST',
+            body: fromData
+        })
+        .then(res => res.json())
+        .then(imgResponse => {
+            console.log(imgResponse)
+        })
     };
-    console.log(errors);
+    // console.log(errors);
     return (
         <div className='w-full h-full px-10 ms-10 mt-2'>
             <Helmet>
@@ -30,8 +43,8 @@ const AddItem = () => {
                         <label className="label">
                             <span className="label-text">Category<span className='text-red-600'>*</span></span>
                         </label>
-                        <select className="select select-bordered" {...register("category", { required: true })}>
-                            <option >Pick one</option>
+                        <select defaultValue="Pick One" className="select select-bordered" {...register("category", { required: true })}>
+                            <option disabled>Pick one</option>
                             <option>Pizza</option>
                             <option>Soup</option>
                             <option>Salad</option>

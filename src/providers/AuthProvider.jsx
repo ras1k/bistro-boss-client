@@ -43,7 +43,6 @@ const AuthProvider = ({ children }) => {
             if(currentUser){
                 axios.post('https://bistro-boss-server-three-omega.vercel.app/jwt', {email: currentUser.email})
                 .then(data => {
-                    console.log(data.data.token)
                     localStorage.setItem('access-token', data.data.token);
                     setLoading(false);
                 });

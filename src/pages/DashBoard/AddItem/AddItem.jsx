@@ -2,10 +2,13 @@ import React from 'react';
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 
 const img_hosting_token = import.meta.env.VITE_Image_Upload_Token;
 const AddItem = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [axiosSecure] = useAxiosSecure()
+    const { register, handleSubmit, reset } = useForm();
     const img_hosting_URl = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`
     const onSubmit = data => {
         console.log(data)
@@ -21,9 +24,24 @@ const AddItem = () => {
                 console.log(imgResponse)
                 if (imgResponse.success) {
                     const imgURL = imgResponse.data.display_url;
-                    const {name, category, price, recipe} = data;
-                    const newItem= {name, category, price: parseFloat(price), recipe, image: imgURL};
-                    console.log(newItem)
+                    const { name, category, price, recipe } = data;
+                    const newItem = { name, category, price: parseFloat(price), recipe, image: imgURL };
+                    console.log(newItem);
+                    axiosSecure.post('/menu', newItem)
+                        .then(data => {
+                            console.log('After posting new menu item', data.data)
+                            if (data.data.insertedId) {
+                                reset();
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: 'Menu Item added successfully',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                            }
+                        })
+
                 }
             })
     };

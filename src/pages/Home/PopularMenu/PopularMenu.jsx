@@ -1,13 +1,13 @@
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
-import MenuItem from '../../Shared/MenuItem/MenuItem';
 import useMenu from '../../../hooks/useMenu';
+import MenuItem from '../../Shared/MenuItem/MenuItem';
 import { Link } from 'react-router-dom';
 
 const PopularMenu = () => {
 
     const [menu] = useMenu();
     const popular = menu.filter(item => item.category === 'popular')
-    
+
     return (
         <div>
             <SectionTitle

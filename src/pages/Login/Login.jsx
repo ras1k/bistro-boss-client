@@ -71,13 +71,13 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="text" name='email' placeholder="email" className="input input-bordered" />
+                                <input type="text" name='email' placeholder="email" className="input input-bordered w-5/6" />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" name='password' placeholder="password" className="input input-bordered" />
+                                <input type="password" name='password' placeholder="password" className="input input-bordered w-5/6" />
                                 <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
@@ -86,11 +86,11 @@ const Login = () => {
                                 <label className="label">
                                     <LoadCanvasTemplate />
                                 </label>
-                                <input type="text" name='captcha' onBlur={handleValidateCaptcha} placeholder="Type the text above" className="input input-bordered" />
+                                <input type="text" name='captcha' onBlur={handleValidateCaptcha} placeholder="Type the text above" className="input input-bordered w-5/6" />
 
                             </div>
-                            <div className="form-control mt-6">
-                                <input type="submit" disabled={false} className='btn btn-primary' value="Login" />
+                            <div className="form-control text-center mt-6">
+                                <input type="submit" disabled={false} className='btn btn-primary w-5/6' value="Login" />
                             </div>
                         </form>
                         <SocialLogin></SocialLogin>

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
-// import './CheckoutForm.css'
+import './CheckoutForm.css'
 
 
 const CheckoutForm = ({ cart, price }) => {
@@ -92,7 +92,7 @@ const CheckoutForm = ({ cart, price }) => {
                 .then(res => {
                     console.log(res.data);
                     if (res.data.result.insertedId) {
-                        // display confirm
+                        alert('Deleted')
                     }
                 })
         }

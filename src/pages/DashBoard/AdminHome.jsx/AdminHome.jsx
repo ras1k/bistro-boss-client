@@ -19,7 +19,7 @@ const AdminHome = () => {
     })
 
     const { data: chartData = [] } = useQuery({
-        queryKey: 'chart-data',
+        queryKey: ['chart-data'],
         queryFn: async () => {
             const res = await axiosSecure('/order-stats');
             return res.data;
@@ -80,7 +80,7 @@ const AdminHome = () => {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className='text-center'>
                 <BarChart
                     width={500}
                     height={300}

@@ -11,6 +11,9 @@
   
 ## Technologies Used:
 * React/Vite
+* NodeJS
+* *ExpressJS
+* MongoDB
 * Tanstack Query
 * Tailwind CSS
 * Daisy Ui

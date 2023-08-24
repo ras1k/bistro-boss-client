@@ -12,7 +12,7 @@
 ## Technologies Used:
 * React/Vite
 * NodeJS
-* *ExpressJS
+* ExpressJS
 * MongoDB
 * Tanstack Query
 * Tailwind CSS

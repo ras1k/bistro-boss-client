@@ -1,6 +1,8 @@
 # Bistro Boss
 
-## Live Link: [Live Link](https://bistro-boss-c440e.firebaseapp.com/)
+## Links: 
+* [Live Link](https://bistro-boss-c440e.firebaseapp.com/)
+* [Server Link](https://github.com/ras1k/bistro-boss-server)
 
 ## Features
 * Authentication

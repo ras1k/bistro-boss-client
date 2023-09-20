@@ -31,5 +31,5 @@
 * react-router-dom
 * recharts
 * sweetalert2
-* swiper
+* swiper js
 

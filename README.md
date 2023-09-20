@@ -1,4 +1,4 @@
-# Bistro Boss
+# Bistro Boss Restaurant
 
 ## Links: 
 * [Live Link](https://bistro-boss-c440e.firebaseapp.com/)
